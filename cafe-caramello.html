@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Café Caramello | Projeto Web — Nicolas Santos</title>
+
+  <meta
+    name="description"
+    content="Projeto de desenvolvimento web criado por Nicolas Santos para um vendedor do Café Caramello, utilizando Python, Flask, HTML e CSS."
+  >
+
+  <meta name="author" content="Nicolas Santos">
+  <meta name="theme-color" content="#20140f">
+
+  <style>
+    :root {
+      --bg: #100d0b;
+      --surface: #1b1512;
+      --surface-light: #261c17;
+      --text: #f5eee7;
+      --muted: #b9aaa0;
+      --accent: #d99b61;
+      --accent-light: #f0c89d;
+      --border: rgba(240, 200, 157, 0.16);
+      --radius: 18px;
+      --max-width: 1100px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+    }
+
+    .container {
+      width: min(var(--max-width), 90%);
+      margin: 0 auto;
+    }
+
+    /* Navegação */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(16, 13, 11, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-light);
+    }
+
+    /* Elementos gerais */
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin: 15px 0 18px;
+    }
+
+    .section {
+      padding: 85px 0;
+    }
+
+    .section-intro {
+      max-width: 690px;
+      color: var(--muted);
+      margin-bottom: 35px;
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 90px;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(
+          ellipse at 85% 30%,
+          rgba(155, 87, 43, 0.2),
+          transparent 43%
+        ),
+        linear-gradient(135deg, #17100c, #100d0b 65%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.7rem, 6vw, 5rem);
+      margin: 24px 0;
+      max-width: 760px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-description {
+      color: var(--muted);
+      max-width: 610px;
+      font-size: 1.08rem;
+      margin-bottom: 30px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 25px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 20px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-size: 0.93rem;
+      font-weight: 700;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #21140c;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-light);
+    }
+
+    /* Ilustração decorativa */
+
+    .coffee-art {
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 50% 50% 45% 45%;
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(217, 155, 97, 0.15),
+          rgba(38, 28, 23, 0.6) 65%,
+          transparent 66%
+        );
+      position: relative;
+    }
+
+    .coffee-art::before,
+    .coffee-art::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(217, 155, 97, 0.23);
+      border-radius: 50%;
+      width: 230px;
+      height: 230px;
+    }
+
+    .coffee-art::after {
+      width: 275px;
+      height: 275px;
+    }
+
+    .coffee-cup {
+      position: relative;
+      z-index: 1;
+      font-size: 6.5rem;
+      filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.3));
+    }
+
+    .coffee-label {
+      position: relative;
+      z-index: 1;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-light);
+    }
+
+    /* Informações do projeto */
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+
+    .info-card .number {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .info-card h3 {
+      font-size: 1.15rem;
+      margin: 13px 0 10px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    /* Sobre o projeto */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 17px;
+    }
+
+    .highlight {
+      border-left: 3px solid var(--accent);
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      color: var(--muted);
+    }
+
+    .highlight strong {
+      color: var(--text);
+    }
+
+    /* Tecnologias */
+
+    .tech-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .tech-tag {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--accent-light);
+      background: rgba(217, 155, 97, 0.05);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    /* Aprendizados */
+
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .learning-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .check {
+      color: var(--accent);
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .learning-item h3 {
+      font-size: 1rem;
+      margin-bottom: 7px;
+    }
+
+    .learning-item p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* Chamada final */
+
+    .contact-panel {
+      text-align: center;
+      padding: 55px 30px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        radial-gradient(
+          ellipse at top,
+          rgba(155, 87, 43, 0.15),
+          transparent 70%
+        ),
+        var(--surface);
+    }
+
+    .contact-panel p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    .contact-panel .actions {
+      justify-content: center;
+    }
+
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .footer-content a:hover {
+      color: var(--accent-light);
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 800px) {
+      .hero-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .coffee-art {
+        min-height: 260px;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 75px 0;
+      }
+
+      .section {
+        padding: 65px 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        padding: 17px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        gap: 15px;
+        font-size: 0.84rem;
+      }
+
+      .hero h1 {
+        font-size: 2.7rem;
+      }
+
+      .learning-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="container" aria-label="Navegação principal">
+      <a class="brand" href="index.html">
+        NICOLAS<span>.</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html">Portfólio</a>
+        <a href="#projeto">Projeto</a>
+        <a href="#tecnologias">Tecnologias</a>
+        <a href="#aprendizados">Aprendizados</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Apresentação -->
+
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div>
+          <span class="eyebrow">Projeto de desenvolvimento web</span>
+
+          <h1>
+            Café <span>Caramello</span>
+          </h1>
+
+          <p class="hero-description">
+            Desenvolvimento de um site para um cliente que trabalha
+            com a venda de produtos Café Caramello, com foco na
+            apresentação comercial da marca e de seus produtos.
+          </p>
+
+          <div class="actions">
+            <a
+              class="btn btn-primary"
+              href="https://projeto-cafe-caramello.onrender.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visitar site publicado ↗
+            </a>
+
+            <a class="btn btn-secondary" href="#projeto">
+              Conhecer o projeto ↓
+            </a>
+          </div>
+        </div>
+
+        <div class="coffee-art" aria-label="Ilustração decorativa de café">
+          <div class="coffee-cup" aria-hidden="true">☕</div>
+          <div class="coffee-label">Café Caramello</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Visão geral -->
+
+    <section class="section" id="projeto">
+      <div class="container">
+
+        <span class="eyebrow">Visão geral</span>
+
+        <h2>Um projeto aplicado a uma necessidade real</h2>
+
+        <p class="section-intro">
+          Este trabalho foi desenvolvido para um cliente real, levando
+          conhecimentos de programação e desenvolvimento web para uma
+          aplicação prática de divulgação comercial.
+        </p>
+
+        <div class="project-grid">
+
+          <article class="info-card">
+            <span class="number">01 / CONTEXTO</span>
+            <h3>Cliente real</h3>
+            <p>
+              Site desenvolvido para apoiar a presença digital de um
+              vendedor dos produtos Café Caramello.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <span class="number">02 / OBJETIVO</span>
+            <h3>Apresentação comercial</h3>
+            <p>
+              Criar um espaço digital para apresentar o negócio e
+              facilitar o acesso dos visitantes às informações disponíveis.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <span class="number">03 / ENTREGA</span>
+            <h3>Site publicado</h3>
+            <p>
+              Aplicação web desenvolvida com Flask e disponibilizada
+              on-line para acesso pelo navegador.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Descrição técnica -->
+
+    <section class="section">
+      <div class="container about-grid">
+
+        <div class="about-text">
+          <span class="eyebrow">Desenvolvimento</span>
+
+          <h2>Da programação à aplicação</h2>
+
+          <p>
+            O projeto envolveu a construção de uma aplicação web com
+            Python e Flask, utilizando tecnologias de front-end para
+            estruturar e apresentar o conteúdo no navegador.
+          </p>
+
+          <p>
+            A proposta foi transformar a necessidade comercial do cliente
+            em uma página acessível pela internet, reunindo a apresentação
+            do negócio em um único endereço.
+          </p>
+
+          <p>
+            A aplicação publicada permite consultar o resultado do
+            desenvolvimento diretamente no navegador.
+          </p>
+        </div>
+
+        <div class="highlight">
+          <strong>Visão profissional</strong>
+
+          <p style="margin-top: 12px;">
+            Desenvolver para um cliente exige mais do que escrever código:
+            é necessário compreender a finalidade do projeto, organizar
+            informações e entregar uma solução que possa ser utilizada
+            fora do ambiente de desenvolvimento.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tecnologias -->
+
+    <section class="section" id="tecnologias">
+      <div class="container">
+
+        <span class="eyebrow">Stack técnica</span>
+
+        <h2>Tecnologias utilizadas</h2>
+
+        <p class="section-intro">
+          Ferramentas utilizadas na construção da aplicação web.
+        </p>
+
+        <div class="tech-panel">
+
+          <h3>Desenvolvimento da aplicação</h3>
+
+          <div class="tech-list">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Flask</span>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+          </div>
+
+          <p style="color: var(--muted); margin-top: 24px;">
+            Python e Flask foram utilizados na aplicação web, enquanto
+            HTML e CSS compõem a estrutura e a apresentação visual das páginas.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Aprendizados -->
+
+    <section class="section" id="aprendizados">
+      <div class="container">
+
+        <span class="eyebrow">Experiência prática</span>
+
+        <h2>Competências trabalhadas</h2>
+
+        <p class="section-intro">
+          O projeto representa a aplicação de conhecimentos técnicos
+          em uma entrega direcionada a uma necessidade comercial.
+        </p>
+
+        <div class="learning-grid">
+
+          <article class="learning-item">
+            <span class="check" aria-hidden="true">✓</span>
+            <div>
+              <h3>Desenvolvimento web</h3>
+              <p>
+                Construção de uma aplicação utilizando Python e Flask.
+              </p>
+            </div>
+          </article>
+
+          <article class="learning-item">
+            <span class="check" aria-hidden="true">✓</span>
+            <div>
+              <h3>Estruturação de páginas</h3>
+              <p>
+                Organização de conteúdo com HTML e apresentação visual com CSS.
+              </p>
+            </div>
+          </article>
+
+          <article class="learning-item">
+            <span class="check" aria-hidden="true">✓</span>
+            <div>
+              <h3>Aplicação para cliente</h3>
+              <p>
+                Desenvolvimento orientado a uma necessidade comercial real.
+              </p>
+            </div>
+          </article>
+
+          <article class="learning-item">
+            <span class="check" aria-hidden="true">✓</span>
+            <div>
+              <h3>Publicação on-line</h3>
+              <p>
+                Disponibilização da aplicação para acesso externo pelo navegador.
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Acesso ao projeto -->
+
+    <section class="section">
+      <div class="container">
+
+        <div class="contact-panel">
+
+          <span class="eyebrow">Explore o resultado</span>
+
+          <h2>Conheça o Café Caramello</h2>
+
+          <p>
+            Acesse a aplicação publicada e veja o resultado deste
+            projeto de desenvolvimento web.
+          </p>
+
+          <div class="actions">
+            <a
+              class="btn btn-primary"
+              href="https://projeto-cafe-caramello.onrender.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir aplicação ↗
+            </a>
+
+            <a
+              class="btn btn-secondary"
+              href="https://www.linkedin.com/in/nicolas-santos-b2891b18a/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Meu LinkedIn ↗
+            </a>
+
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/finics013-cell/projeto-cafe-caramello"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Repositório GitHub ↗
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <span>© 2026 Nicolas Santos</span>
+      <a href="index.html">← Voltar ao portfólio</a>
+    </div>
+  </footer>
+
+</body>
+</html>
