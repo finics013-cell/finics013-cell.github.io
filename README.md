@@ -1,36 +1,65 @@
-# wesleybritowx.github.io
+# Nicolas Santos — Portfólio
 
-Currículo e portfólio de **Wesley Brito** — Analista de Dados (People Analytics).
+Portfólio profissional de **Nicolas Santos**, com projetos práticos de análise de dados, machine learning e desenvolvimento web.
 
-🔗 **https://wesleybritowx.github.io**
+🔗 **[Acessar meu portfólio](https://finics013-cell.github.io/)**  
+💼 **[LinkedIn](https://www.linkedin.com/in/nicolas-santos-b2891b18a/)**  
+💻 **[GitHub](https://github.com/finics013-cell/)**
 
-## Estrutura
+## Projetos
 
-| Arquivo | Descrição |
-| --- | --- |
-| `index.html` | Currículo/portfólio — página única, HTML + CSS, sem dependências externas |
-| `credito.html` | Case de risco de crédito: previsão de inadimplência com LightGBM |
-| `relatorio.html` | Case de automação: relatório de R&S no GitHub Actions com análise da API do Claude |
-| `turnover.html` | Case de People Analytics: impacto do Fit Cultural na retenção |
-| `classificador.html` | Case de NLP: classificador de notícias servido por FastAPI em Docker |
-| `img/` | Foto de perfil |
-| `img/credito/` | Gráficos do case de crédito, exportados do notebook |
-| `img/turnover/` | Gráficos do case de turnover |
+| Projeto | Descrição | Status |
+|---|---|---|
+| [Classificador de Notícias](https://finics013-cell.github.io/classificador.html) | Projeto de classificação de notícias utilizando técnicas de processamento de linguagem natural (NLP) e machine learning. | Concluído |
+| [Café Caramello](https://finics013-cell.github.io/cafe-caramello.html) | Site desenvolvido para um cliente vendedor dos produtos Café Caramello, utilizando Python, Flask, HTML e CSS. | Concluído |
+| Dashboard Financeiro | Projeto de análise financeira com foco na exploração, tratamento e visualização de dados para apoiar a interpretação de indicadores. | Em desenvolvimento |
 
-## Recursos
+## Tecnologias
 
-- **Tema claro/escuro** — segue a preferência do sistema, com alternância manual salva no `localStorage`
-- **Download em PDF** — o botão "Baixar PDF" abre a impressão do navegador com layout A4 dedicado (`@media print`)
-- **Responsivo** — layout adaptado para desktop e mobile
-- **Zero dependências** — ícones em SVG inline, sem CDN, sem build; basta abrir o `index.html`
+- **Python** — programação e análise de dados
+- **SQL** — consulta e manipulação de dados
+- **Looker Studio** — visualização e criação de dashboards
+- **Machine Learning** — desenvolvimento de modelos preditivos e classificação
+- **NLP** — processamento de linguagem natural
+- **Flask** — desenvolvimento de aplicações web
+- **HTML e CSS** — estrutura e apresentação de páginas web
 
-## Desenvolvimento
+## Estrutura do repositório
 
-Não há etapa de build. Edite o `index.html` e abra no navegador.
+| Arquivo ou diretório | Descrição |
+|---|---|
+| `index.html` | Página inicial do portfólio |
+| `classificador.html` | Página de apresentação do projeto Classificador de Notícias |
+| `cafe-caramello.html` | Página de apresentação do projeto Café Caramello |
+| `img/` | Imagens utilizadas no portfólio |
 
-Para servir localmente:
+## Aplicações publicadas
+
+- **Café Caramello:** [Acessar aplicação](https://projeto-cafe-caramello.onrender.com)
+- **Classificador de Notícias:** [Acessar aplicação](https://classificacao-noticias.onrender.com)
+
+## Objetivo profissional
+
+Meu objetivo é desenvolver soluções que transformem dados em informações úteis para a tomada de decisões, aplicando análise exploratória, programação, visualização de dados e aprendizado de máquina.
+
+Também desenvolvo aplicações web para transformar necessidades reais em soluções digitais.
+
+## Desenvolvimento local
+
+Este portfólio é publicado pelo GitHub Pages.
+
+Para executar os arquivos HTML localmente, basta abrir o `index.html` no navegador. Se preferir iniciar um servidor local com Python:
 
 ```bash
 python -m http.server 8000
-# http://localhost:8000
 ```
+
+Depois, acesse:
+
+`http://localhost:8000`
+
+---
+
+**Nicolas Santos**  
+[LinkedIn](https://www.linkedin.com/in/nicolas-santos-b2891b18a/) · [GitHub](https://github.com/finics013-cell/)
+
