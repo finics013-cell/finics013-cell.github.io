@@ -16,7 +16,7 @@ Portfólio profissional de **Nicolas Santos**, com projetos práticos de anális
 
 ## 🎓 Formação Acadêmica
 
-**Tecnólogo em Ciência de Dados** — Estácio  
+**Ciência de Dados** — Estácio  
  Outubro de 2024 – Outubro de 2027  
 **Status:** Cursando
 
