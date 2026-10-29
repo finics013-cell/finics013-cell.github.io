@@ -14,6 +14,12 @@ Portfólio profissional de **Nicolas Santos**, com projetos práticos de anális
 | [Café Caramello](https://finics013-cell.github.io/cafe-caramello.html) | Site desenvolvido para um cliente vendedor dos produtos Café Caramello, utilizando Python, Flask, HTML e CSS. | Concluído |
 | Dashboard Financeiro | Projeto de análise financeira com foco na exploração, tratamento e visualização de dados para apoiar a interpretação de indicadores. | Em desenvolvimento |
 
+## 🎓 Formação Acadêmica
+
+**Tecnólogo em Ciência de Dados** — Estácio  
+ Outubro de 2024 – Outubro de 2027  
+**Status:** Cursando
+
 ## Tecnologias
 
 - **Python** — programação e análise de dados
